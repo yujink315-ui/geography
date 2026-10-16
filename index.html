@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>What's in my bag? – 유럽 여행 가방 싸기</title>
+<title>유럽 여행 가방 싸기</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -791,6 +791,10 @@ header.top{display:flex;justify-content:space-between;align-items:center;gap:12p
 .tboard{margin-top:16px}.tboard table{width:100%;border-collapse:collapse;font-size:15px}.tboard th,.tboard td{padding:8px 6px;text-align:center;border-bottom:1px solid var(--line)}.tboard th:first-child,.tboard td:first-child{text-align:left}.tboard tr.lead td{background:#FFF4D6;color:#5A4300}
 .nextbar{grid-column:1/-1;display:flex;justify-content:center;margin-top:6px}.nextbar .row{justify-content:center}.nextbar #nextStageB{font-size:18px;padding:16px 28px}
 .dTeam.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+.bigstat{min-width:150px}.stat .bigstat b.timer,.bigstat .u{display:inline-block;vertical-align:baseline}.bigstat .timer{font:800 72px/1 Inter,sans-serif}.bigstat .u{font-size:20px;font-weight:700;margin-left:4px}
+.ansbig{font-size:30px;font-weight:700;margin:6px 0 14px}.ansbig b{color:var(--ok)}
+.tls{display:flex;flex-direction:column;gap:8px;margin-bottom:14px}.tl{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;padding:10px 14px;border-radius:12px;background:var(--soft);font-size:16px}
+.tl b{font-size:18px;min-width:40px}.tl.ok{background:#E3F4EA}.tl.no{background:#FDECEA}.tl .mk{font-weight:700}.tl .who{display:flex;flex-wrap:wrap;gap:6px;align-items:center;color:var(--muted)}
 .bigcd{display:flex;align-items:center;gap:14px;margin:12px 0 0;padding:14px 18px;border-radius:16px;background:#FFF4D6;border:3px solid #E7B416;color:#5A4300}
 #lbanner:not(:empty)+.locbar{margin-bottom:130px}
 #lbanner .bigcd{position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:1200;max-width:560px;margin:0 auto;box-shadow:0 8px 24px rgba(0,0,0,.25)}
@@ -824,12 +828,12 @@ header.top{display:flex;justify-content:space-between;align-items:center;gap:12p
 </style>
 </head>
 <body>
-<header class="top"><div class="brand"><span class="mk"></span><div><span class="cap">What's in my bag?</span><h1>유럽 여행 가방 싸기</h1></div></div>
+<header class="top"><div class="brand"><span class="mk"></span><div><h1>유럽 여행 가방 싸기</h1></div></div>
   <div style="display:flex;gap:8px;align-items:center"><span class="pill" id="conn">연결 확인 중</span><span class="pill" id="who"></span><button class="btn line hide" id="leave" style="padding:6px 12px;font-size:13px">↩ 처음 화면</button><button class="btn line" id="theme" style="padding:6px 12px" aria-label="화면 밝기 전환">◐</button></div></header>
 
 <!-- 입장 -->
 <section class="gate panel" id="gate">
-  <span class="cap">Join</span><h2>여행 가방 싸기에 참여하기</h2>
+  <h2>여행 가방 싸기에 참여하기</h2>
   <p class="muted" id="gnote" style="margin-top:0">이름과 우리 조를 고르고 입장하세요.</p>
   <label class="cap" for="nm">이름</label><input id="nm" maxlength="12" placeholder="예: 김지리">
   <div class="cap">조</div><div class="teams" id="teams"></div>
@@ -975,8 +979,8 @@ function chart(c,big){
   const ty=t=>T+(tmax-t)/(tmax-tmin)*(H-T-B),py=p=>H-B-p/pmax*(H-T-B);
   let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${c.name} 월별 기온과 강수량 그래프" style="font-family:Inter,sans-serif">
   ${c.season==="winter"?`<rect x="${L}" y="${T-6}" width="${2*cw}" height="${H-T-B+6}" fill="var(--soft)" rx="4"/><rect x="${L+11*cw}" y="${T-6}" width="${cw}" height="${H-T-B+6}" fill="var(--soft)" rx="4"/>
-  <text x="${L+cw}" y="${H-6}" font-size="11" text-anchor="middle" fill="var(--ink)" font-weight="600">여행 시기 (겨울)</text>`:`<rect x="${L+5*cw}" y="${T-6}" width="${3*cw}" height="${H-T-B+6}" fill="var(--soft)" rx="4"/>
-  <text x="${L+6.5*cw}" y="${H-6}" font-size="11" text-anchor="middle" fill="var(--ink)" font-weight="600">여행 시기 (여름)</text>`}`;
+  <text x="${(L+W-Rr)/2}" y="${H-6}" font-size="11" text-anchor="middle" fill="var(--ink)" font-weight="600">여행 시기 (겨울: 12~2월)</text>`:`<rect x="${L+5*cw}" y="${T-6}" width="${3*cw}" height="${H-T-B+6}" fill="var(--soft)" rx="4"/>
+  <text x="${(L+W-Rr)/2}" y="${H-6}" font-size="11" text-anchor="middle" fill="var(--ink)" font-weight="600">여행 시기 (여름: 6~8월)</text>`}`;
   for(let t=tmin;t<=tmax;t+=10){s+=`<line x1="${L}" x2="${W-Rr}" y1="${ty(t)}" y2="${ty(t)}" stroke="var(--line)" ${t===0?'stroke-width="1.6" stroke="var(--border)"':''}/>
    <text x="${L-6}" y="${ty(t)+4}" font-size="11" text-anchor="end" fill="var(--muted)">${t}°</text>
    <text x="${W-Rr+6}" y="${ty(t)+4}" font-size="11" fill="var(--muted)">${Math.round((t-tmin)/(tmax-tmin)*pmax)}</text>`}
@@ -984,7 +988,7 @@ function chart(c,big){
   s+=`<polyline fill="none" stroke="#C8102E" stroke-width="2.2" points="${c.temp.map((t,i)=>`${L+i*cw+cw/2},${ty(t)}`).join(" ")}"/>`;
   c.temp.forEach((t,i)=>s+=`<circle cx="${L+i*cw+cw/2}" cy="${ty(t)}" r="3" fill="var(--card)" stroke="#C8102E" stroke-width="1.6"/>`);
   s+=`<text x="2" y="12" font-size="11" fill="#C8102E">기온 °C (선)</text><text x="${W}" y="12" font-size="11" text-anchor="end" fill="var(--river)">강수량 mm (막대)</text></svg>`;
-  return`<span class="cap">Climate Graph</span><h3 style="font-size:${big?22:18}px;margin:4px 0 2px">${c.name} (${c.country})의 기후 그래프</h3>${s}<div class="note">자료: ${c.src}${c.srcUrl?` · 출처: <a href="${c.srcUrl}" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline">${esc(c.srcName||c.srcUrl)}</a>`:""}</div>${c.note?`<span class="info">📍 ${c.note}</span>`:""}`;
+  return`<h3 style="font-size:${big?22:18}px;margin:4px 0 2px">${c.name} (${c.country})의 기후 그래프</h3>${s}<div class="note">자료: ${c.src}${c.srcUrl?` · 출처: <a href="${c.srcUrl}" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline">${esc(c.srcName||c.srcUrl)}</a>`:""}</div>`;
 }
 function remain(){if(S.phase!=="packing")return 0;return Math.max(0,Math.ceil((S.startedAt+S.dur*1000-Date.now())/1000))}
 
@@ -1004,7 +1008,7 @@ const FLAGS={"276":`<rect width="18" height="3.67" fill="#000"/><rect y="3.67" w
  "826":`<rect width="18" height="11" fill="#012169"/><path d="M0,0 L18,11 M18,0 L0,11" stroke="#fff" stroke-width="2.2"/><path d="M0,0 L18,11 M18,0 L0,11" stroke="#C8102E" stroke-width=".8"/><path d="M9,0 V11 M0,5.5 H18" stroke="#fff" stroke-width="3.4"/><path d="M9,0 V11 M0,5.5 H18" stroke="#C8102E" stroke-width="2"/>`,
  "578":`<rect width="22" height="16" fill="#BA0C2F"/><rect x="6" width="4" height="16" fill="#fff"/><rect y="6" width="22" height="4" fill="#fff"/><rect x="7" width="2" height="16" fill="#00205B"/><rect y="7" width="22" height="2" fill="#00205B"/>`};
 function flagSVG(iso){const f=FLAGS[iso];if(!f)return"✈️";const vb=iso==="578"?"0 0 22 16":"0 0 18 11";return`<svg viewBox="${vb}" width="66" height="${iso==="578"?48:40}" style="display:block;border-radius:3px;box-shadow:0 1px 4px rgba(0,0,0,.35)" role="img" aria-label="국기">${f}</svg>`}
-function boardingPass(c){return`<div class="pass"><div class="fl">${flagSVG(c.iso)}</div><div><span class="cap">Boarding pass · 탑승권</span><h2>✈️ 미스터리 여행: 어느 나라로 갈까요?</h2><p style="margin:0 0 6px;font-size:14.5px">왼쪽은 이 나라의 국기예요. 단서를 읽고 지도에서 그 <b>나라</b>를 찾아 눌러 보세요.</p><ul>${(c.hints||[]).map(h=>`<li>${esc(h)}</li>`).join("")}</ul></div></div>`}
+function boardingPass(c){return`<div class="pass"><div class="fl">${flagSVG(c.iso)}</div><div><span class="cap">탑승권</span><h2>✈️ 미스터리 여행: 어느 나라로 갈까요?</h2><p style="margin:0 0 6px;font-size:14.5px">왼쪽은 이 나라의 국기예요. 단서를 읽고 지도에서 그 <b>나라</b>를 찾아 눌러 보세요.</p><ul>${(c.hints||[]).map(h=>`<li>${esc(h)}</li>`).join("")}</ul></div></div>`}
 function ctryLayer(map,opt={}){
   if(opt.onPick)Object.entries(map._base).forEach(([iso,l])=>l.on("click",e=>{L.DomEvent.stopPropagation(e);opt.onPick(iso,e.latlng)}));
   return{paint(styles){map._styles=styles||{};map._repaint()}};
@@ -1063,25 +1067,23 @@ function paintTeacherMap(c){
 function renderTeacher(){
   const c=city(S.city);paintTeacherMap(c);
   const rule=`<p class="rule">나라 점수: 정답 나라 3점 · 이웃 나라 1점<br>가방 점수: 챙겨야 할 물건 +5, 필요 없는 물건 −5, 빠뜨린 물건 −2 (만점 10점)</p>`;
-  if(!c){$("#tctl").innerHTML=`<span class="cap">Teacher</span><h3>${(S.visited||[]).length?"다음 단계를 시작해 주세요":"여행을 시작해 볼까요?"}</h3><p class="muted">모두 ${TRIPS.length}단계예요. 단계마다 학생들은 먼저 탑승권 단서로 나라를 찾고, 그다음 기후 그래프를 보며 가방을 싸요. 착륙 지도에는 지금 단계의 도시만 표시되고, 마지막 단계에서 모든 도시가 나타나요.</p>${rule}${stageNav()}${recordsHtml()}`;
+  if(!c){$("#tctl").innerHTML=`<span class="cap">교사 화면</span><h3>${(S.visited||[]).length?"다음 단계를 시작해 주세요":"여행을 시작해 볼까요?"}</h3><p class="muted">모두 ${TRIPS.length}단계예요. 단계마다 학생들은 먼저 탑승권 단서로 나라를 찾고, 그다음 기후 그래프를 보며 가방을 싸요. 착륙 지도에는 지금 단계의 도시만 표시되고, 마지막 단계에서 모든 도시가 나타나요.</p>${rule}${stageNav()}${recordsHtml()}`;
     $("#tchart").classList.add("hide");$("#trev").classList.add("hide");bindStage();return}
   const n=SUBS.length,r=remain(),ln=LOCS.length;
   let h=`<span class="cap">${stageOf(c)}단계 / ${TRIPS.length}</span><h3>${S.phase==="locate"?"어느 나라로 가는 여행일까요?":c.name+" 여행"}</h3>`;
   if(S.phase==="locate"){
     $("#tchart").classList.add("hide");const lr=S.revealAt?Math.max(0,Math.ceil((S.revealAt-Date.now())/1000)):null;
-    h+=boardingPass(c)+`<div class="stat"><div><span class="cap">착륙</span><b>${ln}명</b></div>${lr!==null?`<div><span class="cap">정답 공개까지</span><b class="timer ${lr<=5?'low':''}" id="lcd">${lr}</b></div>`:""}</div>
-     <p class="muted">학생들이 나라를 고르는 동안에는 이 화면에 정답 위치와 학생들의 선택이 보이지 않아요. 준비되면 아래 버튼을 눌러 주세요. 10초 동안 마지막으로 제출할 시간을 준 뒤 정답이 공개돼요.</p>
+    h+=boardingPass(c)+`<div class="stat"><div><span class="cap">착륙</span><b>${ln}명</b></div>${lr!==null?`<div class="bigstat"><span class="cap">정답 공개까지</span><b class="timer ${lr<=5?'low':''}" id="lcd">${lr}</b><span class="u">초</span></div>`:""}</div>
      <div class="row" style="margin-top:12px"><button class="btn" id="locOK" ${lr!==null?"disabled":""}>${lr!==null?"곧 정답이 공개돼요…":"정답 공개하기 (10초 뒤)"}</button></div>`;
   }else{
     $("#tchart").classList.remove("hide");$("#tchart").innerHTML=chart(c,true);
     if(S.phase==="ready"){
-      const ok=LOCS.filter(l=>l.pts===3).length,nb=LOCS.filter(l=>l.pts===1).length;
-      h+=`<div class="stat"><div><span class="cap">정답 나라</span><b>${c.country}</b></div><div><span class="cap">맞힌 학생</span><b>${ok}명</b></div><div><span class="cap">이웃 나라</span><b>${nb}명</b></div></div>${tally().length?`<p class="muted" style="margin:8px 0 4px">학생들이 고른 나라</p><div class="cbtns" style="margin-bottom:12px">${tally().map(([iso,k])=>`<span class="chip">${esc(cname(iso))} ${k}명</span>`).join("")}</div>`:""}
-      <div class="pass" style="background:linear-gradient(135deg,#1F6B4F,#2F8A5B)"><div class="fl">📍</div><div><span class="cap">선생님 설명</span><h2 style="font-size:20px">정답은 ${c.country}! 이번 여행지는 ${jo(c.name,"이에요","예요")}</h2><p style="margin:0;font-size:14.5px;line-height:1.7">${esc(c.about||"")}</p></div></div>
-      <p class="muted">지도의 초록 나라와 핀을 가리키며 도시의 위치를 설명해 주세요. 그다음 기후 그래프를 함께 읽고 가방 싸기를 시작해요.</p><div class="row"><button class="btn" id="go">가방 싸기 시작 (${DURATION}초)</button></div>`;
+      h+=`<div class="ansbig">정답은 <b>${c.country}</b>!</div>${teamLocHtml(c)}
+      `;
+      h+=`<div class="row"><button class="btn" id="go">가방 싸기 시작 (${DURATION}초)</button></div>`;
     }
-    if(S.phase==="packing")h+=`<div class="stat"><div><span class="cap">남은 시간</span><b class="timer ${r<=10?'low':''}" id="tm">${r}</b></div><div><span class="cap">제출</span><b>${n}명</b></div></div><div class="row"><button class="btn" id="stop">지금 마감하기</button></div>`;
-    if(S.phase==="closed")h+=`<div class="stat"><div><span class="cap">제출</span><b>${n}명</b></div></div><p class="muted">마감했어요. 정답을 공개하기 전에 "어떤 물건을 가장 고민했나요?"처럼 학생들의 생각을 먼저 들어 보세요.</p><div class="row"><button class="btn" id="show">정답 공개</button></div>`;
+    if(S.phase==="packing")h+=`<div class="stat"><div class="bigstat"><span class="cap">남은 시간</span><b class="timer ${r<=10?'low':''}" id="tm">${r}</b><span class="u">초</span></div><div><span class="cap">제출</span><b>${n}명</b></div></div><div class="row"><button class="btn" id="stop">지금 마감하기</button></div>`;
+    if(S.phase==="closed")h+=`<div class="stat"><div><span class="cap">제출</span><b>${n}명</b></div></div><div class="row"><button class="btn" id="show">정답 공개</button></div>`;
     if(S.phase==="revealed")h+=`<div class="stat"><div><span class="cap">제출</span><b>${n}명</b></div></div>`;
   }
   h+=`<div class="row" style="margin-top:10px"><button class="btn line sm" id="back">← 이전 단계로</button></div>`;
@@ -1199,6 +1201,10 @@ function mannequin(c,set){
   (v.kinds||[]).forEach((k,j)=>{s+=`<text x="${[24,216,22,218][j%4]}" y="${[30,96,104,150][j%4]}" font-size="24" text-anchor="middle" dominant-baseline="central">${FX[k]}</text>`});
   return{svg:s+`</svg>`,v};
 }
+function teamLocHtml(c){const rows=TEAMS.map(t=>{const a=LOCS.filter(l=>l.team===t);if(!a.length)return`<div class="tl"><b>${t}조</b><span class="muted">제출 없음</span></div>`;
+    const ok=a.filter(l=>l.iso===c.iso).length,win=ok*2>=a.length;const m={};a.filter(l=>l.iso!==c.iso).forEach(l=>m[l.iso]=(m[l.iso]||0)+1);
+    return`<div class="tl ${win?"ok":"no"}"><b>${t}조</b><span class="mk">${win?"⭕ 맞혔어요":"❌ 틀렸어요"}</span><span class="who">${ok?`${esc(c.country)} ${ok}명`:""}${Object.entries(m).sort((x,y)=>y[1]-x[1]).map(([iso,k])=>`<span class="chip">${esc(cname(iso))} ${k}명</span>`).join("")}</span></div>`});
+  return`<div class="tls">${rows.join("")}</div>`}
 function teamStage(c){const o={};TEAMS.forEach(t=>{const devs=new Set([...SUBS,...LOCS].filter(x=>x.team===t).map(x=>x.dev));
     if(!devs.size){o[t]=null;return}let sum=0;devs.forEach(d=>{const l=LOCS.find(x=>x.dev===d),b=SUBS.find(x=>x.dev===d);sum+=(l?l.pts||0:0)+(b?scoreOf(c,b.picked||[]):0)});
     o[t]=Math.round(sum/devs.size*10)/10});return o}
@@ -1222,13 +1228,13 @@ function renderReveal(c){
      <div class="cap"><b>${c.name}의 ${c.season==="winter"?"겨울":"여름"}</b>${c.line}</div>
      <div class="bubble ${m.v.state==="happy"?"ok":""}">${m.v.msgs.slice(0,3).map(esc).join("<br>")}</div>${m.svg}
      <button class="addph" id="ph">배경 사진 넣기</button></div>
-    <div class="panel dress"><span class="cap">Dress the traveler</span>
+    <div class="panel dress"><span class="cap">옷 입혀 보기</span>
      <div class="row">${TEAMS.map(t=>`<button class="btn line sm dTeam ${wornBy[S.round]===t?"on":""}" data-t="${t}">${t}조 선택 입히기</button>`).join("")}<button class="btn line sm" id="dMaj">우리 반 전체</button><button class="btn sm" id="dAns">정답 입히기</button><button class="btn line sm" id="dClr">모두 벗기기</button>
      <span class="outfit">이 옷차림 점수 <b>${scoreOf(c,set)}점</b></span></div>
      <div class="chips">${c.items.map((it,i)=>`<button class="chip ${set.includes(i)?'on':''}" data-i="${i}">${it.e} ${it.n}</button>`).join("")}</div></div></div>
-   <div class="panel tbl"><span class="cap">What should be in the bag?</span><h3 style="font-size:19px;margin:4px 0 10px">챙겼어야 할 물건과 우리 반의 선택</h3>
+   <div class="panel tbl"><h3 style="font-size:19px;margin:4px 0 10px">챙겼어야 할 물건과 우리 반의 선택</h3>
     <table><thead><tr><th>준비물</th><th>정답</th><th>챙긴 학생</th></tr></thead><tbody>
-    ${c.items.map((it,i)=>({it,i})).sort((a,b)=>b.it.ok-a.it.ok).map(r=>`<tr class="${!r.it.ok&&worst&&r.i===worst.i&&worst.v>0?'hot':''}"><td>${r.it.e} <b>${r.it.n}</b><div class="why">${r.it.why}</div></td><td class="${r.it.ok?'ok':'no'}">${r.it.ok?'챙기기':'두고 가기'}</td>
+    ${c.items.map((it,i)=>({it,i})).sort((a,b)=>b.it.ok-a.it.ok).map(r=>`<tr class="${!r.it.ok&&worst&&r.i===worst.i&&worst.v>0?'hot':''}"><td>${r.it.e} <b>${r.it.n}</b></td><td class="${r.it.ok?'ok':'no'}">${r.it.ok?'챙기기':'두고 가기'}</td>
       <td>${cnt[r.i]}명<div class="bar"><i style="width:${n?cnt[r.i]/n*100:0}%"></i></div></td></tr>`).join("")}</tbody></table>
     ${teamBoard()}
     ${worst&&worst.v>0?`<p class="rule">💬 질문해 보기: ${n}명 중 ${worst.v}명이 '${c.items[worst.i].n}'을(를) 챙겼어요. 마네킹에 입혀 반응을 보여 준 뒤, 그래프로 돌아가 이유를 함께 확인해 보세요.</p>`:""}</div>`;
@@ -1273,7 +1279,7 @@ function renderStudent(){
   const view=c?S.phase+S.round:"none";
   if(S.phase==="locate"&&c){
     if(box.dataset.view!==view){killSmap();box.dataset.view=view;
-      box.innerHTML=`${boardingPass(c)}<div class="panel" style="padding:12px"><span class="cap">Find the country</span><h3 style="margin:4px 0 8px">단서에 맞는 나라를 지도에서 눌러 보세요</h3>
+      box.innerHTML=`${boardingPass(c)}<div class="panel" style="padding:12px"><h3 style="margin:4px 0 8px">단서에 맞는 나라를 지도에서 눌러 보세요</h3>
         <div class="mapbox smap"><div id="smap" style="height:100%"></div></div>
         <div id="lbanner"></div><div class="locbar"><span class="muted" id="locmsg"></span><button class="btn" id="land">이 나라로 착륙!</button></div></div>`;
       smap=makeMap("smap",{terrain:false,cities:false,pick:true});smap.fitBounds([[35,-12],[70,42]]);
@@ -1304,7 +1310,7 @@ function renderStudent(){
   if(S.phase==="packing"){
     const r=remain();
     box.innerHTML=`<div class="panel chart">${chart(c,false)}</div>
-     <div class="case"><span class="cap">My bag · ${c.name}</span><div class="in">${myPick.length?myPick.map(i=>`<span>${c.items[i].e} ${c.items[i].n}</span>`).join(""):"<em>필요한 물건을 눌러 가방에 담아 보세요</em>"}</div></div>
+     <div class="case"><span class="cap">내 가방 · ${c.name}</span><div class="in">${myPick.length?myPick.map(i=>`<span>${c.items[i].e} ${c.items[i].n}</span>`).join(""):"<em>필요한 물건을 눌러 가방에 담아 보세요</em>"}</div></div>
      <div class="picks">${c.items.map((it,i)=>`<button class="pick ${myPick.includes(i)?'on':''}" data-i="${i}"><span class="em">${it.e}</span><span>${it.n}</span><span class="st">${myPick.includes(i)?'담음':'+ 담기'}</span></button>`).join("")}</div>
      <div class="submitbar"><span class="bigtm"><span class="cap">남은 시간</span> <b class="timer ${r<=10?'low':''}" id="tm">${r}</b><span class="u">초</span></span><button class="btn" id="sub">${submitted?'다시 제출하기':'가방 제출하기'}</button></div>
      ${submitted?`<p class="note" style="text-align:right">제출했어요. 시간 안에는 바꿔서 다시 낼 수 있어요.</p>`:""}`;
